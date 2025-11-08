@@ -28,7 +28,7 @@
 Challenge developers to design and implement an **AI-powered vehicle condition assessment** feature.
 The system should enable customers to capture photos at **pick-up and return**, automatically detect damages, and display reports.
 
-**Accepted formats:** web app 🌐, mobile app 📱, or chatbot 🤖.
+**Accepted formats:** web app 🌐 or mobile app 📱.
 Use of pretrained AI/ML models or APIs is **allowed** ✅.
 
 ### 🧱 Tech Choice Clarification
