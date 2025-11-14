@@ -1,0 +1,111 @@
+<ion-content fullscreen class="ion-padding">
+
+  <!-- ==================== Page Header ==================== -->
+  <div style="text-align: center; margin-bottom: 16px;">
+    <h1 style="font-size: 22px; font-weight: bold; margin-bottom: 12px;">
+      Damage Detector
+    </h1>
+
+    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+      <ion-button color="primary" (click)="downloadReport()">
+        Report
+      </ion-button>
+      <ion-button color="secondary" (click)="goToDashboard()">
+        Dashboard
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- ==================== Pickup Photos Section ==================== -->
+  <section style="margin-bottom: 24px;">
+    <h2 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Pickup Photos</h2>
+
+    <div class="photo-grid">
+      <!-- Existing Photos -->
+      <ng-container *ngFor="let photo of pickupPhotos; let i = index">
+        <div class="photo-item">
+          <img
+            [src]="photo"
+            class="photo-img"
+            (click)="openPhotoActionSheet('pickup', i)"
+          />
+        </div>
+      </ng-container>
+
+      <!-- Add Photo Button -->
+      <div class="photo-item add-photo" (click)="openPhotoActionSheet('pickup', -1)">
+        <ion-icon name="camera-outline" style="font-size: 32px; margin-bottom: 4px;"></ion-icon>
+        <span style="font-size: 12px;">Add Photo</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Return Photos Section ==================== -->
+  <section>
+    <h2 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Return Photos</h2>
+
+    <div class="photo-grid">
+      <!-- Existing Photos -->
+      <ng-container *ngFor="let photo of returnPhotos; let i = index">
+        <div class="photo-item">
+          <img
+            [src]="photo"
+            class="photo-img"
+            (click)="openPhotoActionSheet('return', i)"
+          />
+        </div>
+      </ng-container>
+
+      <!-- Add Photo Button -->
+      <div class="photo-item add-photo" (click)="openPhotoActionSheet('return', -1)">
+        <ion-icon name="camera-outline" style="font-size: 32px; margin-bottom: 4px;"></ion-icon>
+        <span style="font-size: 12px;">Add Photo</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hidden File Input -->
+  <input
+    #carsFileInput
+    type="file"
+    accept="image/*"
+    hidden
+    multiple
+    (change)="onPhotoSelected($event)"
+  />
+
+</ion-content>
+
+<!-- ======= Styles ======= -->
+<style>
+.photo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.photo-item {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.add-photo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed #ccc;
+  cursor: pointer;
+  color: #888;
+}
+</style>
