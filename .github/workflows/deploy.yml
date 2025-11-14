@@ -24,7 +24,7 @@ jobs:
 
 
       - name: Build Ionic
-        run: npm run build
+        run: npm run build:github
         working-directory: frontend
 
 
