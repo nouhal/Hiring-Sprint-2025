@@ -2,12 +2,14 @@ import { Component, ElementRef,ViewChild,} from '@angular/core';
 import {
   IonicModule,
   ToastController,
-  ActionSheetController,
   IonHeader,
   IonToolbar,
   IonTitle,
   IonContent,
 } from '@ionic/angular';
+
+import { ActionSheetController } from '@ionic/angular/standalone';
+
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { CommonModule } from '@angular/common';
