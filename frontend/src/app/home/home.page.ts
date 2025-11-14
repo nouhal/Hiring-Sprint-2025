@@ -24,6 +24,8 @@ import html2canvas from 'html2canvas';
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule],
+  providers: [ActionSheetController, ModalController, ToastController]
+
 })
 export class HomePage {
   // Arrays to hold photos for each stage
