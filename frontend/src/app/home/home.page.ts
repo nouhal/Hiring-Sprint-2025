@@ -51,6 +51,8 @@ export class HomePage {
 
   // Open Action Sheet for each photo or Add Photo button
 async openPhotoActionSheet(stage: 'pickup' | 'return', index: number) {
+  console.log('ActionSheetController:', this.actionSheetCtrl);
+
   const actionSheet = await this.actionSheetCtrl.create({
     header: 'Photo Actions',
     buttons: [
@@ -115,14 +117,16 @@ deletePhoto(stage: 'pickup' | 'return', index: number) {
 
 // Navigate to the Report page
   goToReport() {
+    console.log("download pdf")
     // Replace '/report' with your actual route
     this.router.navigate(['/report']);
   }
 
   // Navigate to the Dashboard page
   goToDashboard() {
+    console.log("go to dashboard")
     // Replace '/dashboard' with your actual route
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/home']);
   }
 
   // Generate a PDF report
