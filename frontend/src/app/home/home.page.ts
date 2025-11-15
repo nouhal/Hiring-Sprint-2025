@@ -13,7 +13,7 @@ import { ActionSheetController } from '@ionic/angular/standalone';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { CommonModule } from '@angular/common';
-import { ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular/standalone';
 import { CarCameraModalComponent } from '../car-camera-modal/car-camera-modal.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import jsPDF from 'jspdf';
