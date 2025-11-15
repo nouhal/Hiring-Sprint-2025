@@ -29,7 +29,7 @@ import html2canvas from 'html2canvas';
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [CommonModule],
-  providers: [ModalController,IonicModule]
+  providers: [ModalController,IonicModule, ToastController]
 
 })
 export class HomePage {
