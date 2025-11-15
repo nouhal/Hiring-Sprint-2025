@@ -19,7 +19,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-import { HfStorageService } from '../services/hf-storage.service';
 
 
 
@@ -49,7 +48,6 @@ export class HomePage {
     private actionSheetCtrl: ActionSheetController,
     private modalCtrl: ModalController,
     private router: Router,
-    private hfStorage: HfStorageService
   ) {}
 
   ngOnInit() {}
@@ -158,15 +156,6 @@ deletePhoto(stage: 'pickup' | 'return', index: number) {
     doc.save('vehicle-report.pdf');
   }
 
-//   private dataURLtoFile(dataurl: string, filename: string): File {
-//   const arr = dataurl.split(',');
-//   const mime = arr[0].match(/:(.*?);/)![1];
-//   const bstr = atob(arr[1]);
-//   let n = bstr.length;
-//   const u8arr = new Uint8Array(n);
-//   while (n--) u8arr[n] = bstr.charCodeAt(n);
-//   return new File([u8arr], filename, { type: mime });
-// }
 
 
 dataURLtoFile(dataurl: string, filename: string) {
@@ -181,67 +170,7 @@ dataURLtoFile(dataurl: string, filename: string) {
   return new File([u8arr], filename, {type:mime});
 }
 
-// async uploadAllPhotos() {
-//   const pickupFiles = this.pickupPhotos.map((photo, i) => 
-//     this.dataURLtoFile(photo, `pickup-${i}.jpg`)
-//   );
 
-//   const returnFiles = this.returnPhotos.map((photo, i) => 
-//     this.dataURLtoFile(photo, `return-${i}.jpg`)
-//   );
-
-//   // Upload pickup
-//   const pickupUrls = await this.uploadPhotosToHF(pickupFiles);
-
-//   // Upload return
-//   const returnUrls = await this.uploadPhotosToHF(returnFiles);
-
-//   console.log('Pickup URLs:', pickupUrls);
-//   console.log('Return URLs:', returnUrls);
-
-//   // Optionally show a toast
-//   const toast = await this.toastCtrl.create({
-//     message: 'Photos uploaded successfully!',
-//     duration: 2500,
-//     color: 'success'
-//   });
-//   toast.present();
-// }
-
-
-// async uploadAllPhotos() {
-//   const carId = 'car-' + Date.now();
-//   const formData = new FormData();
-
-//   this.pickupPhotos.forEach((p, i) =>
-//     formData.append('files', this.dataURLtoFile(p, `pickup-${i}-before.jpg`))
-//   );
-
-//   this.returnPhotos.forEach((p, i) =>
-//     formData.append('files', this.dataURLtoFile(p, `return-${i}-after.jpg`))
-//   );
-
-//   // Optional: append JSON report
-//   const reportBlob = new Blob([JSON.stringify({ pickup: this.pickupPhotos.length, return: this.returnPhotos.length })], { type: 'application/json' });
-//   formData.append('files', reportBlob, `report-${Date.now()}.json`);
-
-//   formData.append('carId', carId);
-
-//   const res = await fetch('http://localhost:3000/upload', {
-//     method: 'POST',
-//     body: formData
-//   });
-
-//   const data = await res.json();
-//   console.log('Upload result:', data);
-
-//   const toast = await this.toastCtrl.create({
-//     message: 'Photos and report uploaded successfully!',
-//     duration: 2500,
-//     color: 'success'
-//   });
-//   toast.present();
-// }
 
 async uploadPhotosToHF(files: File[]): Promise<string[]> {
   const formData = new FormData();
