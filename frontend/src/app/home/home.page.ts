@@ -4,7 +4,7 @@ import {
 
 } from '@ionic/angular';
 
-import { IonButton,IonIcon,IonHeader,IonContent,IonToolbar } from '@ionic/angular';
+import { IonButton,IonIcon,IonHeader,IonContent,IonToolbar } from '@ionic/angular/standalone';
 
 
 import { ActionSheetController } from '@ionic/angular/standalone';
