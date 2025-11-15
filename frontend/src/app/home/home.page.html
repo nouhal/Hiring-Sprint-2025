@@ -7,35 +7,30 @@
     </h1>
 
     <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
-      <ion-button color="primary" (click)="downloadReport()">
-        Report
-      </ion-button>
-      <ion-button color="secondary" (click)="goToDashboard()">
-        Dashboard
-      </ion-button>
-      <ion-button expand="block" color="success" (click)="uploadAllPhotos()">
-  Upload Photos & Report
-</ion-button>
+      <ion-button color="primary" (click)="downloadReport()">Report</ion-button>
+      <ion-button color="secondary" (click)="goToDashboard()">Dashboard</ion-button>
+      <ion-button expand="block" color="success" (click)="uploadAllPhotos()">Upload Photos & Report</ion-button>
     </div>
   </div>
+
+  <!-- ==================== Damage Comparison Section ==================== -->
+  <section style="margin-top: 20px;">
+  <h2>Damage Comparison</h2>
+  <canvas #damageCanvas style="border: 1px solid #ccc; max-width: 100%;"></canvas>
+  <ion-button color="danger" (click)="compareDamagePhotos()">Compare Damage</ion-button>
+</section>
 
   <!-- ==================== Pickup Photos Section ==================== -->
   <section style="margin-bottom: 24px;">
     <h2 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Pickup Photos</h2>
 
     <div class="photo-grid">
-      <!-- Existing Photos -->
       <ng-container *ngFor="let photo of pickupPhotos; let i = index">
         <div class="photo-item">
-          <img
-            [src]="photo"
-            class="photo-img"
-            (click)="openPhotoActionSheet('pickup', i)"
-          />
+          <img [src]="photo" class="photo-img" (click)="openPhotoActionSheet('pickup', i)" />
         </div>
       </ng-container>
 
-      <!-- Add Photo Button -->
       <div class="photo-item add-photo" (click)="openPhotoActionSheet('pickup', -1)">
         <ion-icon name="camera-outline" style="font-size: 32px; margin-bottom: 4px;"></ion-icon>
         <span style="font-size: 12px;">Add Photo</span>
@@ -48,18 +43,12 @@
     <h2 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Return Photos</h2>
 
     <div class="photo-grid">
-      <!-- Existing Photos -->
       <ng-container *ngFor="let photo of returnPhotos; let i = index">
         <div class="photo-item">
-          <img
-            [src]="photo"
-            class="photo-img"
-            (click)="openPhotoActionSheet('return', i)"
-          />
+          <img [src]="photo" class="photo-img" (click)="openPhotoActionSheet('return', i)" />
         </div>
       </ng-container>
 
-      <!-- Add Photo Button -->
       <div class="photo-item add-photo" (click)="openPhotoActionSheet('return', -1)">
         <ion-icon name="camera-outline" style="font-size: 32px; margin-bottom: 4px;"></ion-icon>
         <span style="font-size: 12px;">Add Photo</span>
@@ -68,18 +57,10 @@
   </section>
 
   <!-- Hidden File Input -->
-  <input
-    #carsFileInput
-    type="file"
-    accept="image/*"
-    hidden
-    multiple
-    (change)="onPhotoSelected($event)"
-  />
+  <input #carsFileInput type="file" accept="image/*" hidden multiple (change)="onPhotoSelected($event)" />
 
 </ion-content>
 
-<!-- ======= Styles ======= -->
 <style>
 .photo-grid {
   display: flex;

@@ -200,5 +200,99 @@ async uploadAllPhotos() {
 }
 
 
+async detectDamage(file: File) {
+  const form = new FormData();
+  form.append("file", file);
+  const res = await fetch("https://nouhal-damage-data-space.hf.space/compare", {
+    method: "POST",
+    body: form
+  });
+  return await res.json();
+}
+
+
+
+async compareDamage() {
+  const pickupResults: any[] = [];
+  const returnResults: any[] = [];
+
+  for (let i = 0; i < this.pickupPhotos.length; i++) {
+    const file = this.dataURLtoFile(this.pickupPhotos[i], `pickup-${i}.jpg`);
+    pickupResults.push(await this.detectDamage(file));
+  }
+
+  for (let i = 0; i < this.returnPhotos.length; i++) {
+    const file = this.dataURLtoFile(this.returnPhotos[i], `return-${i}.jpg`);
+    returnResults.push(await this.detectDamage(file));
+  }
+
+  console.log("Pickup damage results:", pickupResults);
+  console.log("Return damage results:", returnResults);
+
+  // Return structured results for comparison
+  return pickupResults.map((pickup, i) => {
+    const ret = returnResults[i] || { prediction: [] };
+    // Example: find new damages that are in return but not in pickup
+    const newDamages = ret.prediction.filter((r: any) => 
+      !pickup.prediction.some((p: any) =>
+        p.x === r.x && p.y === r.y && p.width === r.width && p.height === r.height
+      )
+    );
+    return {
+      pickupDamage: pickup.prediction,
+      returnDamage: ret.prediction,
+      newDamages,
+    };
+  });
+}
+
+
+@ViewChild('damageCanvas', { static: false })
+damageCanvas!: ElementRef<HTMLCanvasElement>;
+
+async compareDamagePhotos() {
+  if (!this.pickupPhotos[0] || !this.returnPhotos[0]) {
+    alert("Please add both pickup and return photos.");
+    return;
+  }
+
+  const pickupFile = this.dataURLtoFile(this.pickupPhotos[0], 'pickup.jpg');
+  const returnFile = this.dataURLtoFile(this.returnPhotos[0], 'return.jpg');
+
+  const formData = new FormData();
+  formData.append("pickup", pickupFile);
+  formData.append("return_", returnFile);
+
+  // Call FastAPI /compare
+  const res = await fetch("https://nouhal-damage-data-space.hf.space/compare", {
+    method: "POST",
+    body: formData
+  });
+
+  const data = await res.json();
+  console.log("Comparison result:", data);
+
+  // Draw return image and highlight new damages
+  const canvasEl = this.damageCanvas.nativeElement;
+  const ctx = canvasEl.getContext('2d')!;
+  const img = new Image();
+  img.src = this.returnPhotos[0];
+
+  img.onload = () => {
+    canvasEl.width = img.width;
+    canvasEl.height = img.height;
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+
+    data.new_damages.forEach((box: any) => {
+      ctx.strokeStyle = 'red';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(box.x, box.y, box.width, box.height);
+    });
+  };
+}
+
+
+
+
 
 }
