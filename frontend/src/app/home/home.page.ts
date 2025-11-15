@@ -9,6 +9,8 @@ import {
 } from '@ionic/angular';
 
 import { ActionSheetController } from '@ionic/angular/standalone';
+import { IonButton, IonIcon } from '@ionic/angular/standalone';
+
 
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
@@ -27,7 +29,7 @@ import html2canvas from 'html2canvas';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule],
+  imports: [IonicModule, CommonModule,IonButton],
   providers: [ModalController, ToastController]
 
 })
