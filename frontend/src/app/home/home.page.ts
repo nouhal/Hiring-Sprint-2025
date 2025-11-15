@@ -29,7 +29,7 @@ import html2canvas from 'html2canvas';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule,IonButton],
+  imports: [IonicModule, CommonModule],
   providers: [ModalController, ToastController]
 
 })
