@@ -250,6 +250,47 @@ async compareDamage() {
 @ViewChild('damageCanvas', { static: false })
 damageCanvas!: ElementRef<HTMLCanvasElement>;
 
+// async compareDamagePhotos() {
+//   if (!this.pickupPhotos[0] || !this.returnPhotos[0]) {
+//     alert("Please add both pickup and return photos.");
+//     return;
+//   }
+
+//   const pickupFile = this.dataURLtoFile(this.pickupPhotos[0], 'pickup.jpg');
+//   const returnFile = this.dataURLtoFile(this.returnPhotos[0], 'return.jpg');
+
+//   const formData = new FormData();
+//   formData.append("pickup", pickupFile);
+//   formData.append("return_", returnFile);
+
+//   // Call FastAPI /compare
+//   const res = await fetch("https://nouhal-damage-data-space.hf.space/compare", {
+//     method: "POST",
+//     body: formData
+//   });
+
+//   const data = await res.json();
+//   console.log("Comparison result:", data);
+
+//   // Draw return image and highlight new damages
+//   const canvasEl = this.damageCanvas.nativeElement;
+//   const ctx = canvasEl.getContext('2d')!;
+//   const img = new Image();
+//   img.src = this.returnPhotos[0];
+
+//   img.onload = () => {
+//     canvasEl.width = img.width;
+//     canvasEl.height = img.height;
+//     ctx.drawImage(img, 0, 0, img.width, img.height);
+
+//     data.new_damages.forEach((box: any) => {
+//       ctx.strokeStyle = 'red';
+//       ctx.lineWidth = 3;
+//       ctx.strokeRect(box.x, box.y, box.width, box.height);
+//     });
+//   };
+// }
+
 async compareDamagePhotos() {
   if (!this.pickupPhotos[0] || !this.returnPhotos[0]) {
     alert("Please add both pickup and return photos.");
@@ -263,30 +304,41 @@ async compareDamagePhotos() {
   formData.append("pickup", pickupFile);
   formData.append("return_", returnFile);
 
-  // Call FastAPI /compare
-  const res = await fetch("https://nouhal-damage-data-space.hf.space/compare", {
+  // Call FastAPI /compare endpoint
+  const response = await fetch("https://nouhal-damage-data-space.hf.space/compare", {
     method: "POST",
-    body: formData
+    body: formData,
   });
 
-  const data = await res.json();
-  console.log("Comparison result:", data);
+  const result = await response.json();
+  console.log("COMPARE RESULT:", result);
 
-  // Draw return image and highlight new damages
-  const canvasEl = this.damageCanvas.nativeElement;
-  const ctx = canvasEl.getContext('2d')!;
+  if (result.error) {
+    alert("Error: " + result.error);
+    return;
+  }
+
+  const newDamages = result.new_damages || [];
+
+  // ===== Draw the return image =====
+  const canvas = this.damageCanvas.nativeElement;
+  const ctx = canvas.getContext("2d")!;
   const img = new Image();
   img.src = this.returnPhotos[0];
 
   img.onload = () => {
-    canvasEl.width = img.width;
-    canvasEl.height = img.height;
+    canvas.width = img.width;
+    canvas.height = img.height;
+
     ctx.drawImage(img, 0, 0, img.width, img.height);
 
-    data.new_damages.forEach((box: any) => {
-      ctx.strokeStyle = 'red';
+    // ===== Draw bounding boxes =====
+    newDamages.forEach((boxObj: any) => {
+      const box = boxObj.box;      // The backend gives: {box:{x,y,w,h}}
+
+      ctx.strokeStyle = "red";
       ctx.lineWidth = 3;
-      ctx.strokeRect(box.x, box.y, box.width, box.height);
+      ctx.strokeRect(box.x, box.y, box.w, box.h);
     });
   };
 }
