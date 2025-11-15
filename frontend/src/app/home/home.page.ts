@@ -1,6 +1,5 @@
 import { Component, ElementRef,ViewChild,} from '@angular/core';
 import {
-  IonicModule,
   ToastController,
   IonHeader,
   IonToolbar,
@@ -9,7 +8,6 @@ import {
 } from '@ionic/angular';
 
 import { ActionSheetController } from '@ionic/angular/standalone';
-import { IonButton, IonIcon } from '@ionic/angular/standalone';
 
 
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -20,6 +18,7 @@ import { CarCameraModalComponent } from '../car-camera-modal/car-camera-modal.co
 import { Router, ActivatedRoute } from '@angular/router';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import {IonButton, IonIcon } from '@ionic/angular/standalone';
 
 
 
@@ -29,8 +28,8 @@ import html2canvas from 'html2canvas';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule,IonButton],
-  providers: [ModalController, ToastController]
+  imports: [CommonModule],
+  providers: [ModalController, ToastController,IonButton,IonIcon]
 
 })
 export class HomePage {
