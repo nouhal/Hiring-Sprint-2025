@@ -187,18 +187,32 @@ async uploadPhotosToHF(files: File[]): Promise<string[]> {
   return data.uploaded;  // contains URLs
 }
 
+// async uploadAllPhotos() {
+//   const pickupFiles = this.pickupPhotos.map((p, i) => 
+//     this.dataURLtoFile(p, `pickup-${i}.jpg`)
+//   );
+//   const returnFiles = this.returnPhotos.map((p, i) => 
+//     this.dataURLtoFile(p, `return-${i}.jpg`)
+//   );
+
+//   const allFiles = [...pickupFiles, ...returnFiles];
+
+//   const urls = await this.uploadPhotosToHF(allFiles);
+//   console.log("Uploaded URLs:", urls);
+// }
+
 async uploadAllPhotos() {
-  const pickupFiles = this.pickupPhotos.map((p, i) => 
-    this.dataURLtoFile(p, `pickup-${i}.jpg`)
-  );
-  const returnFiles = this.returnPhotos.map((p, i) => 
-    this.dataURLtoFile(p, `return-${i}.jpg`)
-  );
+  const pickupFiles = this.pickupPhotos.map((p, i) => this.dataURLtoFile(p, `pickup-${i}.jpg`));
+  const returnFiles = this.returnPhotos.map((p, i) => this.dataURLtoFile(p, `return-${i}.jpg`));
 
   const allFiles = [...pickupFiles, ...returnFiles];
 
-  const urls = await this.uploadPhotosToHF(allFiles);
-  console.log("Uploaded URLs:", urls);
+  try {
+    const urls = await this.uploadPhotosToHF(allFiles);
+    console.log("Uploaded URLs:", urls);
+  } catch (err) {
+    console.error("Upload failed:", err);
+  }
 }
 
 
