@@ -19,7 +19,6 @@ import { CarCameraModalComponent } from '../car-camera-modal/car-camera-modal.co
 import { Router, ActivatedRoute } from '@angular/router';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import {IonButton } from '@ionic/angular/standalone';
 
 
 
@@ -30,7 +29,7 @@ import {IonButton } from '@ionic/angular/standalone';
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [CommonModule],
-  providers: [ModalController,IonicModule, ToastController,IonButton]
+  providers: [ModalController,IonicModule, ToastController]
 
 })
 export class HomePage {
