@@ -28,6 +28,7 @@
     "@capacitor/haptics": "7.0.2",
     "@capacitor/keyboard": "7.0.3",
     "@capacitor/status-bar": "7.0.3",
+    "@huggingface/hub": "^0.14.1",
     "@ionic/angular": "^8.0.0",
     "html2canvas": "^1.4.1",
     "ionicons": "^7.0.0",
