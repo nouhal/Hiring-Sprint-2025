@@ -4,7 +4,7 @@ import {
 
 } from '@ionic/angular';
 
-import { IonicModule } from '@ionic/angular';
+import { IonButton,IonIcon,IonHeader,IonContent,IonToolbar } from '@ionic/angular';
 
 
 import { ActionSheetController } from '@ionic/angular/standalone';
@@ -30,7 +30,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [CommonModule],
-  providers: [ModalController,IonicModule, ToastController],
+  providers: [ModalController,IonButton,IonIcon,IonHeader,IonContent,IonToolbar, ToastController],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 
