@@ -1,12 +1,11 @@
 import { Component, ElementRef,ViewChild,} from '@angular/core';
 import {
-  IonicModule,
   ToastController,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
+
 } from '@ionic/angular';
+
+import { IonicModule } from '@ionic/angular';
+
 
 import { ActionSheetController } from '@ionic/angular/standalone';
 
@@ -19,6 +18,8 @@ import { CarCameraModalComponent } from '../car-camera-modal/car-camera-modal.co
 import { Router, ActivatedRoute } from '@angular/router';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 
 
 
@@ -29,7 +30,9 @@ import html2canvas from 'html2canvas';
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [CommonModule],
-  providers: [ModalController,IonicModule, ToastController]
+  providers: [ModalController,IonicModule, ToastController],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
 
 })
 export class HomePage {
@@ -44,8 +47,6 @@ export class HomePage {
 
 
   constructor(
-    private toastCtrl: ToastController,
-    private sanitizer: DomSanitizer,
     private actionSheetCtrl: ActionSheetController,
     private modalCtrl: ModalController,
     private router: Router,
